@@ -4,6 +4,7 @@ import zipfile
 import fnmatch
 import re
 import mylib
+
 from datetime import date, datetime, timedelta
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
@@ -109,25 +110,6 @@ def download_folder(a):
         file_download(folder_name, 9)
 
 
-def dddd(string):
-    l = len(string)
-    integ = []
-    i = 0
-    while i < l:
-        s_int = ''
-        a = string[i]
-        while '0' <= a <= '9':
-            s_int += a
-            i += 1
-            if i < l:
-                a = string[i]
-            else:
-                break
-        i += 1
-        if s_int != '':
-            integ.append(int(s_int))
-    return integ
-
 
 def find_document(listdt, driver):
     files_list = []
@@ -190,9 +172,6 @@ def load_file(driver, folder_name, last_date):
             for_input = date.strftime("%d.%m.%y")
             data_input = mylib.find("//div[text()='00.00.00']/preceding-sibling::input", driver)
 
-            # data_input = driver.find_element(by=By.XPATH, value="//div[text()='00.00.00']/preceding-sibling::input")
-            # time.sleep(0.8)
-
             print(folder_name)
             print(for_input)
             data_input.send_keys(for_input)
@@ -215,15 +194,6 @@ def load_file(driver, folder_name, last_date):
                 "//div[text()='Приход']",
             ]
             cycle_of_click(paths, driver)
-            # for path in paths:
-            #     print(path)
-            #     mylib.find_click(path, driver)
-            # data_input = driver.find_element(by=By.XPATH, value="//div[text()='00.00.00']/preceding-sibling::input")
-            # print(folder_name)
-            # print(for_input)
-            # data_input.send_keys(for_input)
-            # time.sleep(2)
-            # data_input.send_keys(Keys.ENTER)
             j = {
                 "Козлочков Алексей Владимирович, ИП": ["Кудринка", "Серебрянка"],
                 "Козлочкова Наталья Ивановна, ИП": ["Палатка", "СЭМЗ"],
@@ -288,41 +258,7 @@ def element_action(driver, XPvalue, attempts=5, click='no', exeption_action=my_p
         exeption_action
 
 
-def checking(driver, date, stock, organization)
-    xpatch_value = f''
-    try:
-        driver.find_element(By.XPATH, value=f"//div[text()='{date}']/preceding-sibling::input")
-        pass
-    except:
 
-# tab_open(a, driver)
-# print(get_lastdate())
-# a = get_lastdate()
-# find_document(a, driver)
-# print(driver.current_url)
-
-# tab_open(a, driver)
-# # print(get_lastdate())
-# print(driver.current_url)
-# # download_folder(get_lastdate())
-# a = get_lastdate()
-# for date in a:
-#     archive_name = date.strftime("Приходы  %m %d")
-#     print(archive_name)
-#     found_unzip('C:\\Users\\Александр\\Downloads', archive_name, 'C:\\Приходы')
-#
-# found_unzip('C:\\Users\\Александр\\Downloads', 'Приходы  06 13', 'C:\\Приходы')
-
-
-#tab_open(a, driver)
-# list_doc = find_document(get_lastdate(), driver)
-# e = len(list_doc)
-# p = 0
-# while p < e:
-#      found_unzip('C:\\Users\\Александр\\Downloads', 'C:\\Приходы', list_doc[p])
-#      p += 1
-# else:
-#      print("Готово!")
 def main():
     driver.get('https://online.sbis.ru/page/purchases')
     load_file(driver, 'Приходы  11 13', '12.11.22')
