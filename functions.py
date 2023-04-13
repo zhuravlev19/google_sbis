@@ -177,23 +177,29 @@ def load_file(driver, folder_name, last_date):
             data_input.send_keys(for_input)
             time.sleep(0.5)
 
-            paths = [
-                "//span[text()='Поставщик']",
-                "//span[text()='Козлочков Алексей Владимирович, ИП']",
-            ]
-            cycle_of_click(paths, driver)
+            # Написать функцию генерации paths
+            # lines = ("Поставщик", "Козлочков Алексей Владимирович, ИП")
+            # path = [f"//span[text()='{line}']" for line in lines]
 
-            time.sleep(0.5)
             paths = [
-                "//span[text()='Поставщик']",
-                "//span[text()='Козлочков Алексей Владимирович, ИП']",
+                [
+                    "//span[text()='Поставщик']",
+                    "//span[text()='Козлочков Алексей Владимирович, ИП']",
+                ],
+                [
+                    "//span[text()='Поставщик']",
+                    "//tspan[tex()='Козлочков Алексей Владимирович, ИП']",
+                ],
+                [
+                    "//span[text()='Разобрать']",
+                    "//div[text()='Приход']",
+                ]
+
             ]
-            cycle_of_click(paths, driver)
-            paths = [
-                "//span[text()='Разобрать']",
-                "//div[text()='Приход']",
-            ]
-            cycle_of_click(paths, driver)
+            for path in paths:
+                cycle_of_click(path, driver)
+                time.sleep(0.5)
+
             j = {
                 "Козлочков Алексей Владимирович, ИП": ["Кудринка", "Серебрянка"],
                 "Козлочкова Наталья Ивановна, ИП": ["Палатка", "СЭМЗ"],
@@ -224,8 +230,9 @@ def load_file(driver, folder_name, last_date):
                         try:
                             driver.find_element(by=By.XPATH,
                                                 value="//span[@class='controls-FilterView__iconReset icon-CloseNew']").click()
-                        except:
-                            pass
+                        except Exception as e:
+                            print(e)
+                            # переделать на LOG
                         cycle_of_click(paths3, driver)
 
         else:
